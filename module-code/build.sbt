@@ -1,65 +1,39 @@
-import play.Project._
+import bintray.Keys._
 
 name := "SecureSocial"
 
-version := "2.1.4"
+version := "2.1.5"
+
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 libraryDependencies ++= Seq(
   cache,
-  "com.typesafe" %% "play-plugins-util" % "2.2.0",
-  "com.typesafe" %% "play-plugins-mailer" % "2.2.0",
-  "org.mindrot" % "jbcrypt" % "0.3m"
+  //"com.typesafe.play" %% "play"         % "2.3.8" % "provided",
+  "com.typesafe.play" %% "play-mailer"  % "2.4.0",
+  "org.mindrot"       %  "jbcrypt"      % "0.3m"
+  //"com.typesafe.play.plugins" % "play-plugins-util" % "2.3.1"
 )
 
 resolvers ++= Seq(
-  Resolver.typesafeRepo("releases")
+  Resolver.typesafeRepo("Typesafe releases")
 )
 
 organization := "ws.securesocial"
 
-organizationName := "SecureSocial"
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-organizationHomepage := Some(new URL("http://www.securesocial.ws")) 
+scalaVersion := "2.11.6"
+
+crossScalaVersions := Seq("2.10.5", "2.11.6")
 
 publishMavenStyle := true
 
 publishArtifact in Test := false
 
-pomIncludeRepository := { _ => false }
-
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-}
-
-startYear := Some(2012)
-
-description := "An authentication module for Play Framework applications supporting OAuth, OAuth2, OpenID, Username/Password and custom authentication schemes."
-
-licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
-
-homepage := Some(url("http://www.securesocial.ws"))
-
-pomExtra := (
-  <scm>
-    <url>https://github.com/jaliss/securesocial</url>
-    <connection>scm:git:git@github.com:jaliss/securesocial.git</connection>
-    <developerConnection>scm:git:https://github.com/jaliss/securesocial.git</developerConnection>
-  </scm>
-  <developers>
-    <developer>
-      <id>jaliss</id>
-      <name>Jorge Aliss</name>
-      <email>jaliss [at] gmail.com</email>
-      <url>https://twitter.com/jaliss</url>
-    </developer>
-  </developers>
-)
-
 scalacOptions := Seq("-feature", "-deprecation")
 
-playScalaSettings
+bintrayPublishSettings
+bintrayOrganization in bintray := Some("micronautics")
+repository in bintray := "play"
 
+publishArtifact in Test := false
